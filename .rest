@@ -1,0 +1,4 @@
+## WICHTIGER HINWEIS
+## Beispiel: POST http://localhost:5500... HTTP/1.1 <- Nicht vergessen 😉
+## Nach dem Login speichert VS-Code das Cookie für weitere Anfragen, aber nicht sichtbar
+## neuer Login muss gemacht werden wenn... VS-Code oder .rest Datei geschlossen wurden
