@@ -22,3 +22,29 @@ export const getFilteredJobs = async (req, res) => {
   const jobs = await Job.find({ title: new RegExp(term, 'i') });
   res.json(jobs);
 };
+export const updateJob = async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.id);
+    if (!job) return res.status(404).json({ error: 'Job nicht gefunden' });
+    if (job.company.toString() !== req.user.id) return res.status(403).json({ error: 'Nicht berechtigt' });
+
+    Object.assign(job, req.body);
+    await job.save();
+    res.json(job);
+  } catch (err) {
+    res.status(500).json({ error: 'Serverfehler', details: err.message });
+  }
+};
+
+export const deleteJob = async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.id);
+    if (!job) return res.status(404).json({ error: 'Job nicht gefunden' });
+    if (job.company.toString() !== req.user.id) return res.status(403).json({ error: 'Nicht berechtigt' });
+
+    await job.deleteOne();
+    res.json({ message: 'Job erfolgreich gelöscht' });
+  } catch (err) {
+    res.status(500).json({ error: 'Serverfehler', details: err.message });
+  }
+};
