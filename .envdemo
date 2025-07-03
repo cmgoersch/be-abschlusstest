@@ -1,0 +1,4 @@
+PORT = 5500
+MONGODB_URI = "mongodbschlüssel"
+JWT_SECRET="key"
+JWT_EXPIRES_IN=12h
