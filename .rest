@@ -8,8 +8,8 @@ Content-Type: application/json
 
 {
   "role": "company",
-  "email": "firma3@test.de",
-  "password": "Test3@123456",
+  "email": "firma4@test.de",
+  "password": "Test4@123456",
   "companyName": "TestFirma",
   "contactPerson": "Kushtrim Bilali"
 }
@@ -18,8 +18,8 @@ POST http://localhost:5500/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "firma3@test.de",
-  "password": "Test3@123456"
+  "email": "firma4@test.de",
+  "password": "Test4@123456"
 }
 
 
@@ -29,7 +29,7 @@ POST http://localhost:5500/api/jobs/add HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Softaware Entwickler",
+  "title": "Software Entwickler",
   "description": "Software Entwickler gesucht",
   "companyName": "TestFirma",
   "contactPerson": "Kushtrim Bilali"
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 
 ### updateJob - Aktualisiere eine Stellenanzeige
-PUT http://localhost:5500/api/jobs/update/686637ddb4e4bb42f363ff9c HTTP/1.1
+PUT http://localhost:5500/api/jobs/update/68664056b4e4bb42f363ffad HTTP/1.1
 Content-Type: application/json
 
 {
@@ -50,7 +50,7 @@ Content-Type: application/json
 
 ### deleteJob (single)
 
-DELETE http://localhost:5500/api/jobs/delete/686637ddb4e4bb42f363ff9c HTTP/1.1
+DELETE http://localhost:5500/api/jobs/delete/68664056b4e4bb42f363ffad HTTP/1.1
 
 ###loadAll - Zeige alle offenen Stellenanzeigen an
 
@@ -61,3 +61,6 @@ GET http://localhost:5500/api/jobs/all
 ### loadFiltered - Zeige alle offenen Stellenanzeigen an, die 'react' im Titel haben
 GET http://localhost:5500/api/jobs/filter/react
 
+###
+### apply - Bewerbe dich auf eine StellenanzeigePOST 
+POST http://localhost:5500/api/jobs/apply/686534c6f7d1f54bfe78c009 HTTP/1.1
