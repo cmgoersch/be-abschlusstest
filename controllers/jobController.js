@@ -14,7 +14,8 @@ export const apply = async (req, res) => {
   res.json({ message: 'Erfolgreich beworben' });
 };
 export const getAllJobs = async (req, res) => {
-  const jobs = await Job.find().populate('company', 'email').populate('applicants', 'email fullname');
+  const jobs = await Job.find()
+    .populate('applicants', 'email contactPerson');
   res.json(jobs);
 };
 export const getFilteredJobs = async (req, res) => {
