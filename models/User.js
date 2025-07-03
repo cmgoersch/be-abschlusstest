@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 10,
   validate: {
     validator: function(v) {
       return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{10,}$/.test(v);
