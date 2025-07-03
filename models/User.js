@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import User from "../models/User.js";
 
 const userSchema = new mongoose.Schema({
   role: {
@@ -16,17 +17,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 10,
-    validate: {
-      validator: function(v) {
-        // Mindestens 1 Großbuchstabe, 1 Kleinbuchstabe, 1 Sonderzeichen
-        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{10,}$/.test(v);
-      },
-      message: props => 'Das Passwort muss mindestens 10 Zeichen lang sein und mindestens einen Großbuchstaben, einen Kleinbuchstaben und ein Sonderzeichen enthalten.'
-    }
+  validate: {
+    validator: function(v) {
+      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{10,}$/.test(v);
+    },
+    message: props => 'Das Passwort muss mindestens 10 Zeichen lang sein und mindestens einen Großbuchstaben, einen Kleinbuchstaben und ein Sonderzeichen enthalten.'
+  }
   },
   fullname: {
     type: String,
-    required: true,
     minlength: 3,
     maxlength: 20, 
     required: function () {
@@ -42,14 +41,17 @@ const userSchema = new mongoose.Schema({
   contactPerson: {
     type: String,
     default: '',
-
   },
-  })
-
-  userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+  this.password = await bcrypt.hash(this.password, 12);
+});
+
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
+
+
+export default mongoose.model('User', userSchema);
