@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
+//createToken
 const createToken = (user) => {
   return jwt.sign(
     {
@@ -13,11 +14,13 @@ const createToken = (user) => {
   );
 };
 
+//isValidPassword
 function isValidPassword(password) {
   // Mindestens 10 Zeichen, 1 Großbuchstabe, 1 Kleinbuchstabe, 1 Sonderzeichen
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{10,}$/.test(password);
 }
 
+//register
 export const register = async (req, res) => {
   try {
     const { role, email, password, fullname, companyName, contactPerson } = req.body;
@@ -47,6 +50,7 @@ export const register = async (req, res) => {
   }
 };
 
+//login
 export const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
